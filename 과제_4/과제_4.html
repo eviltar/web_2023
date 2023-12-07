@@ -10,8 +10,8 @@
   function BintoHex() {
     var n = document.getElementById("bin").value;
     var hex = parseInt(n, 2).toString(16);
-    var a = hex.toUpperCase();
-    document.getElementById("ans").value = a;
+    var a1 = hex.toUpperCase();
+    document.getElementById("ans").value = a1;
   }
  function DrawTri(){
    var rows = document.getElementById("tri").value;
@@ -31,18 +31,18 @@
        pas[y][z] = upperLeft + upper;
      }
    }
-   var html = "";
+   var a2 = "";
    for (var a = 0; a < rows; a++) {
-     html += '<div>';
+     a2 += '<div>';
      for (var b = 0; b < rows; b++) {
        if (pas[a][b] === 0) {
          continue;
        }
-       html += '<span> ' + pas[a][b] + " </span>";
+       a2 += '<span> ' + pas[a][b] + " </span>";
      }
-     html += "</div>";
+     a2 += "</div>";
    }
-   document.getElementById("pascal").innerHTML += html;
+   document.getElementById("pascal").innerHTML += a2;
   }
 </script>
 </head>
@@ -56,8 +56,8 @@
     <button onclick="BintoHex()" class="btn bg-black text-white">===></button>
     16진수:
     <input type="text" id="ans">
-    <hr>
   </label>
+  <hr>
 
   <!--파스칼 삼각형-->
   <h1>파스칼 삼각형</h1>
