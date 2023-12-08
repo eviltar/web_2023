@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>과제_4</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function BintoHex() {
+    var n = document.getElementById("bin").value;
+    var hex = parseInt(n, 2).toString(16);
+    var a1 = hex.toUpperCase();
+    document.getElementById("ans").value = a1;
+  }
+ function DrawTri(){
+   var rows = document.getElementById("tri").value;
+   var pas = [];
+   for (var i = 0; i < rows; i++) {
+     pas.push([]);
+     for (var j = 0; j < rows; j++) {
+       pas[i].push(0);
+     }
+   }
+   pas[0][0] = 1;
+   var upperLeft, upper = null;
+   for (var y = 1; y < rows; y++) {
+     for (var z = 0; z < rows; z++) {
+       upperLeft = pas[y - 1][z - 1] === undefined ? 0 : pas[y - 1][z - 1];
+       upper = pas[y - 1][z];
+       pas[y][z] = upperLeft + upper;
+     }
+   }
+   var a2 = "";
+   for (var a = 0; a < rows; a++) {
+     a2 += '<div>';
+     for (var b = 0; b < rows; b++) {
+       if (pas[a][b] === 0) {
+         continue;
+       }
+       a2 += '<span> ' + pas[a][b] + " </span>";
+     }
+     a2 += "</div>";
+   }
+   document.getElementById("pascal").innerHTML += a2;
+  }
+</script>
+</head>
+<script>
+window.addEventListener("load", function() {
+    var all_elements = document.getElementsByTagName('*') ;
+    Array.prototype.forEach.call(all_elements, function(el) {
+        var includePath = el.dataset.includePath;
+        if (includePath) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState==4 && this.status==200) {
+                    el.outerHTML = this.responseText;
+                }
+            } ;
+            xhttp.open('GET', includePath, true) ;
+            xhttp.send() ;
+        }
+    }) ;
+}) ;
+
+</script>
+<body>
+<div data-include-path="https://eviltar.github.io/web_2023/nav_page.html"></div>
+
+<div style="width:600px; margin:auto;">
+  <!--2진수를 16진수를 바꾸기-->
+  <h1>2진수 변환기</h1>
+  <label style="color:blue;">
+    2진수
+    <input type="number" id="bin">
+    <button onclick="BintoHex()" class="btn bg-black text-white">===></button>
+    16진수:
+    <input type="text" id="ans">
+  </label>
+  <hr>
+
+  <!--파스칼 삼각형-->
+  <h1>파스칼 삼각형</h1>
+  <label style="color:blue;">
+    삼각형 높이:
+    <input type="number" id="tri" style="width:80px;">
+    <button onclick="DrawTri()" class="btn bg-success text-white">그리기</button>
+  </label>
+  <div id="pascal" style="color:white; background-color: grey;"></div>
+</div>
+<script src="js/get_tags.js"></script>
+</body>
+</html>
