@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    .navbar-nav > li{
+      padding-left:20px;
+      padding-right:20px;
+    }
+    .footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: darkgray;
+        color: white;
+        text-align: center;
+        font-size: 12px;
+    }
+    .carousel-caption{
+        font-weight:bold;
+        background-color: black;
+        background-color: rgba(0,0,0,0.7);
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="bat.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+    </a>
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">과제_1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">과제_2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">과제_3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">과제_4</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">DOHYUN_PAGE</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+  </div>
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="welcome.jpg" alt="Los Angeles" class="d-block w-100">
+      <div class="carousel-caption d-flex flex-column justify-content-center" style="top: 300px; bottom:300px;">
+        <h1>DOHYUN의 과제란 모음 사이트</h1>
+        <h3>2023/term2</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="program.jpg" alt="Chicago" class="d-block w-100">
+      <div class="carousel-caption d-flex flex-column justify-content-center" style="top: 300px; bottom:300px;">
+        <h1>DOHYUN의 과제란 모음 사이트</h1>
+        <h3>환영합니다</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="hello.jpg" alt="New York" class="d-block w-100">
+      <div class="carousel-caption d-flex flex-column justify-content-center" style="top: 300px; bottom:300px;">
+        <h1>DOHYUN의 과제란 모음 사이트</h1>
+        <h3>총 다섯 가지의 LABS</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+<div class="footer">
+    <div>© Copyright <b>Dohyun</b>. All Rights Reserved</div>
+    <div>Designed by <b>Dohyun</b> & <i>W3schools/pixabay.com/flaticon.com</i></div>
+    <div>© email: 20220828@dongduk.ac.kr/ e.g. 2023.12</div>
+</div>
+</body>
+</html><script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host + 
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash 
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script>
