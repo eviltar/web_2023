@@ -24,8 +24,19 @@
     }
     .carousel-caption{
         font-weight:bold;
-        background-color: black;
         background-color: rgba(0,0,0,0.7);
+    }
+    /***small device only***/
+    @media(max-width:767px){
+      h1{
+        font-size: 10px;
+      }
+      h3{
+        font-size: 7px
+      }
+      .carousel-caption{
+        background-color: rgba(0,0,0,0);
+      }
     }
 </style>
 <body>
@@ -34,23 +45,28 @@
     <a class="navbar-brand" href="#">
       <img src="bat.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
     </a>
-    <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">과제_1</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">과제_2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">과제_3</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">과제_4</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">DOHYUN_PAGE</a>
-        </li>
-    </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="my_nav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="">과제_1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">과제_2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">과제_3</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">과제_4</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">DOHYUN_PAGE</a>
+            </li>
+        </ul>
+    </div>
   </div>
 </nav>
 <!-- Carousel -->
@@ -100,40 +116,4 @@
     <div>© email: 20220828@dongduk.ac.kr/ e.g. 2023.12</div>
 </div>
 </body>
-</html><script>
-(function() {
-  var ws = new WebSocket('ws://' + window.location.host + 
-             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
-             'referrer=' + encodeURIComponent(window.location.pathname));
-  ws.onmessage = function (msg) {
-      if (msg.data === 'reload') {
-          window.location.reload();
-      }
-      if (msg.data.startsWith('update-css ')) {
-          var messageId = msg.data.substring(11);
-          var links = document.getElementsByTagName('link');
-          for (var i = 0; i < links.length; i++) {
-              var link = links[i];
-              if (link.rel !== 'stylesheet') continue;
-              var clonedLink = link.cloneNode(true);
-              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
-              if (newHref !== link.href) {
-                clonedLink.href = newHref;
-              }
-              else {
-                var indexOfQuest = newHref.indexOf('?');
-                if (indexOfQuest >= 0) {
-                  // to support ?foo#hash 
-                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
-                                    newHref.substring(indexOfQuest + 1);
-                }
-                else {
-                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
-                }
-              }
-              link.replaceWith(clonedLink);
-          }
-      }
-  };
-})();
-</script>
+</html>
